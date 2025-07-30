@@ -6,7 +6,7 @@ let delBtn = document.querySelector(".delBtn");
 
 let lastOperand = "";
 let lastInput = "";
-let operators = "+-/X"
+let operators = "+-/x"
 
 function getLastInput() { return lastInput; };
 function isOperator(value) { return operators.includes(value); };
