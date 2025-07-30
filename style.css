@@ -42,10 +42,6 @@ html {
     background: rgb(42, 41, 41);
 }
 
-.expBtn {
-    background: orange;
-}
-
 .outputText {
     width: 88%;
     text-align: right;
@@ -63,6 +59,8 @@ html {
     font-size: 3em;
     background: white;
     margin: 0 auto .5em;
+    overflow-x: auto;
+    letter-spacing: .05em;
 }
 
 
