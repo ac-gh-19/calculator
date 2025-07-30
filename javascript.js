@@ -9,8 +9,6 @@ let modBtn = document.querySelector(".modBtn");
 let equalBtn = document.querySelector(".equalBtn");
 let outputTxt = document.querySelector(".outputText");
 
-let allBtns = document.querySelectorAll(".buttons");
-
 
 let equation = "";
 let lastInput = "";
@@ -54,7 +52,6 @@ numBtns.forEach(btn => {
         updateLastOperand(e.target.textContent);
         updateLastInput()
         inputText.scrollLeft = inputText.scrollWidth;
-        console.log(`this is the lastoperand ${lastOperand}`);
     })
 })
 
@@ -82,7 +79,6 @@ expBtns.forEach(btn => {
         updateLastOperand(e.target.textContent);
         updateLastInput();
         inputText.scrollLeft = inputText.scrollWidth;
-        console.log(`this is the lastOperand ${lastOperand}`);
     });
 })
 
@@ -95,6 +91,10 @@ clearBtn.addEventListener("click", (e) => {
 })
 
 delBtn.addEventListener("click", (e) => {
+    if (equalSignLastClicked) {
+        clearBtn.click();
+        equalSignLastClicked = false;
+    }
     if (inputText.value == "") return;
     inputText.value = inputText.value.slice(0, -1);
     equation = inputText.value;
@@ -121,7 +121,6 @@ delBtn.addEventListener("click", (e) => {
         }
         lastOperand = equation.slice(indexNewLastOperand + 1);
     }
-    console.log(`this is the lastOperand ${lastOperand}`);
 })
 
 oppSignBtn.addEventListener("click", (e) => {
@@ -215,7 +214,6 @@ equalBtn.addEventListener("click", (e) => {
         rpnQueue.push(operatorStack.pop());
     }
 
-    console.log(rpnQueue);
 
     let total = 0;
     let stack = [];
@@ -244,10 +242,19 @@ equalBtn.addEventListener("click", (e) => {
         }
     }
 
-    inputText.value = stack[0];
-    outputTxt.textContent = equation + " = " + stack[0];
+    let result = stack[0].toString();
+
+    if (result.includes(".")) {
+        let decimalIndex = result.indexOf(".");
+        let decimalPortion = result.slice(decimalIndex + 1);
+        if (decimalPortion.length > 10) {
+            result = (+result).toFixed(10);
+        }
+    }
+    inputText.value = result;
+    outputTxt.textContent = equation + " = " + result;
     outputTxt.scrollLeft = outputTxt.scrollWidth;
-    equation = inputText.value;
+    equation = result;
     equalSignLastClicked = true;
 
 
