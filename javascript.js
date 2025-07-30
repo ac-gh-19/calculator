@@ -3,7 +3,7 @@ let numBtns = document.querySelectorAll(".numBtn");
 let expBtns = document.querySelectorAll(".expBtn");
 let clearBtn = document.querySelector(".clearBtn");
 let delBtn = document.querySelector(".delBtn");
-let oppSignBtn = document.querySelector(".oppositeSignButton");
+let oppSignBtn = document.querySelector(".oppositeSignBtn");
 
 let equation = "";
 let lastInput = "";
@@ -89,5 +89,33 @@ delBtn.addEventListener("click", (e) => {
     console.log(`this is the lastOperand ${lastOperand}`);
 })
 
-// oppSignBtn.addEventListener("click", (e) => {
-// })
+oppSignBtn.addEventListener("click", (e) => {
+    let index = equation.lastIndexOf(lastOperand);
+    if (lastOperand == "" || operators.includes(lastOperand)) {
+        return;
+    } else if (index == 0) {
+        if (equation[index] == "-") {
+            equation = equation.slice(1);
+            inputText.value = equation;
+        } else {
+            equation = "-" + equation;
+            inputText.value = equation;
+        }
+    } else {
+        if (equation[index - 1] == "x" || equation[index - 1] == "/") {
+            return;
+        } else if (equation[index - 1] == "+") {
+        equation = equation.slice(0, index - 1) + "-" + equation.slice(index);
+        inputText.value = equation;
+        } else {
+            if (equation[0] == "-") {
+                equation = equation.slice(1);
+                inputText.value = equation;
+                return;
+            }
+            equation = equation.slice(0, index - 1) + "+" + equation.slice(index);
+            inputText.value = equation; 
+        }
+    }
+
+})
