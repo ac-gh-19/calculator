@@ -43,12 +43,17 @@ html {
 }
 
 .outputText {
+    display: flex;
+    justify-content: right;
+    align-items: end;
+    overflow-x: auto;
+    letter-spacing: .05em;
     width: 88%;
-    text-align: right;
     color: white;
     height: 3rem;
     margin: auto;
-    font-size: 3rem;
+    padding-bottom: .3em;
+    font-size: 1rem;
 }
 
 .inputText {
@@ -63,4 +68,10 @@ html {
     letter-spacing: .05em;
 }
 
+.orangeBtn {
+    background: orange;
+}
 
+.lessGrayBtn {
+    background: gray;
+}
