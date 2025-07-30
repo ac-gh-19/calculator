@@ -3,7 +3,9 @@ let numBtns = document.querySelectorAll(".numBtn");
 let expBtns = document.querySelectorAll(".expBtn");
 let clearBtn = document.querySelector(".clearBtn");
 let delBtn = document.querySelector(".delBtn");
+let dotBtn = document.querySelector(".dotBtn");
 let oppSignBtn = document.querySelector(".oppositeSignBtn");
+
 
 let equation = "";
 let lastInput = "";
@@ -39,7 +41,9 @@ expBtns.forEach(btn => {
         if (isOperator(getLastInput())) { // if clicking expressionBtn twice - remove the last one
             inputText.value = inputText.value.slice(0, -1);
             equation = inputText.value.slice(0,-1);
-        }
+        };
+
+        if (getLastInput() == ".") return;
 
         if (lastInput == "") return; // disallows operator as first input
 
@@ -70,8 +74,8 @@ delBtn.addEventListener("click", (e) => {
     equation = inputText.value;
     currLastInput = lastInput;
     updateLastInput()
+    let indexNewLastOperand = -1;
     if (operators.includes(currLastInput)) {
-        let indexNewLastOperand = -1;
         for (let i = equation.length - 1; i >= 0; --i) {
             if (operators.includes(equation[i])) {
                 indexNewLastOperand = i;
@@ -84,7 +88,12 @@ delBtn.addEventListener("click", (e) => {
             lastOperand = equation.slice(indexNewLastOperand + 1);
         }
     } else {
-        lastOperand = lastInput;
+        for (let i = equation.length - 1; i >= 0; --i) {
+            if (operators.includes(equation[i])) {
+                indexNewLastOperand = i;
+            }
+        }
+        lastOperand = equation.slice(indexNewLastOperand + 1);
     }
     console.log(`this is the lastOperand ${lastOperand}`);
 })
@@ -117,5 +126,14 @@ oppSignBtn.addEventListener("click", (e) => {
             inputText.value = equation; 
         }
     }
+    updateLastInput();
 
+})
+
+dotBtn.addEventListener("click", (e) => {
+    equation += e.target.textContent;
+    updateLastOperand(e.target.textContent);
+    updateLastInput();
+    if (lastInput != "." ) inputText.value += e.target.textContent;
+    inputText.scrollLeft = inputText.scrollWidth;
 })
