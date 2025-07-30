@@ -164,7 +164,7 @@ dotBtn.addEventListener("click", (e) => {
 })
 
 modBtn.addEventListener("click", (e) => {
-    alert("will implement later");
+    alert("implement later - tired");
     clearBtn.click();
 })
 
